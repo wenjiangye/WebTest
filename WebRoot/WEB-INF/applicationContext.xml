@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd     
+    http://www.springframework.org/schema/websocket 
+    http://www.springframework.org/schema/websocket/spring-websocket.xsd
+    http://cxf.apache.org/jaxws 
+    http://cxf.apache.org/schemas/jaxws.xsd
+    http://cxf.apache.org/jaxrs
+    http://cxf.apache.org/schemas/jaxrs.xsd">
+	<jaxws:endpoint id="Service1"
+		implementor="com.nc.function.NC_ServiceImpl" address="/NC_Service" />
+		
+	<jaxws:endpoint id="Service2"
+		implementor="com.nc.function.HelloWorld" address="/hello" />
+	
+	<bean id="restfulRegeditService" class="com.nc.function.RestfulRegeditServiceImpl" /> 
+	
+    <jaxrs:server id="restServiceContainer" address="/regedit">
+        <jaxrs:serviceBeans>
+            <ref bean="restfulRegeditService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>
+            <entry key="json" value="application/json" />
+            <entry key="xml" value="application/xml" />
+        </jaxrs:extensionMappings>
+        <jaxrs:languageMappings>
+            <entry key="en" value="en-gb" />
+        </jaxrs:languageMappings>
+    </jaxrs:server> 
+    <bean id="restfulNcService" class="com.nc.function.NC_ServiceImpl" /> 
+	
+    <jaxrs:server id="restServiceContainer2" address="/NC">
+        <jaxrs:serviceBeans>
+            <ref bean="restfulNcService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>
+            <entry key="json" value="application/json" />
+            <entry key="xml" value="application/xml" />
+        </jaxrs:extensionMappings>
+        <jaxrs:languageMappings>
+            <entry key="en" value="en-gb" />
+        </jaxrs:languageMappings>
+    </jaxrs:server>  
+
+</beans>

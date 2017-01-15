@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	version="3.1"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd
+	http://www.springframework.org/schema/beans/spring-beans.xsd     
+    http://www.springframework.org/schema/websocket 
+    http://www.springframework.org/schema/websocket/spring-websocket.xsd
+	">
+	<display-name>cxf</display-name>
+	<context-param>
+           <param-name>contextConfigLocation</param-name>
+           <param-value>WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+	<listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+	<servlet>
+		<description>Apache CXF Endpoint</description>
+		<display-name>cxf</display-name>
+		<servlet-name>cxf</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>JspProcess</servlet-name>
+    <servlet-class>com.nc.function.JspProcess</servlet-class>
+  </servlet>
+  <servlet>
+        <servlet-name>SpringMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+  </servlet>
+	<servlet-mapping>
+		<servlet-name>cxf</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JspProcess</servlet-name>
+    <url-pattern>/servlet/JspProcess</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+		<servlet-name>SpringMVC</servlet-name>
+		<url-pattern>/websock/*</url-pattern>
+   </servlet-mapping>
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+</web-app>
