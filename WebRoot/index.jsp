@@ -27,7 +27,6 @@
 	//连接创建后调用
 	socket.onopen = function() {
 		$("#showMsg").append("连接成功...<br/>");
-		$("#showMsg").append("ws://"+ window.location.host+"${pageContext.request.contextPath}/websock/websocket");
 	};
 	//接收到服务器消息后调用
 	socket.onmessage = function(message) {
@@ -44,7 +43,6 @@
 		alert("error");
 	};
 	$("#sendButton").click(function() {
-		$("#showMsg").append("ws://"+ window.location.host+"${pageContext.request.contextPath}/websocket<br/>");
 		socket.send($("#msg").val());
 	});
 });
