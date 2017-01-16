@@ -14,6 +14,7 @@
 	<script src="js/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
    var socket =null;
+  
    $(function(){
 	function parseObj(strData){//转换对象
 	    return (new Function( "return " + strData ))();
@@ -29,8 +30,7 @@
 	};
 	//接收到服务器消息后调用
 	socket.onmessage = function(message) {
-		var data=parseObj(message.data);
-		$("#showMsg").append("<span style='display:block'>"+data.text+"</span>");
+		$("#showMsg").append("<span style='display:block'>"+ message.data+"</span>");
 	
 	};
 	//关闭连接的时候调用
@@ -44,6 +44,9 @@
 	$("#sendButton").click(function() {
 		socket.send($("#msg").val());
 	});
+	window.onbeforeunload = function(event) { 
+      socket.close();
+    }
 });
     </script>
   </head>

@@ -1,5 +1,6 @@
 package com.nc.function;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,11 +15,17 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
     private final static List<WebSocketSession> sessions = Collections.synchronizedList(new ArrayList<WebSocketSession>());
     //接收文本消息，并发送出去
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        super.handleTextMessage(session, message);
-        for(int i = 0;i < sessions.size();i++)
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+       try {
+			
+           super.handleTextMessage(session, message);
+           for(int i = 0;i < sessions.size();i++)
         	sessions.get(i).sendMessage(message);
-
+         }
+          catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+          }
     }
     //连接建立后处理
     @SuppressWarnings("unchecked")
@@ -30,11 +37,18 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
     }
     //抛出异常时处理
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        if(session.isOpen()){
-            session.close();
-        }
-        System.out.println("websocket chat connection closed......");
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
+        try {
+            if(session.isOpen()){
+
+				session.close();
+			}
+        }catch (IOException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+        	
+			}
+        System.out.println("websocket chat error, connection closed......");
         sessions.remove(session);
     }
     //连接关闭后处理
