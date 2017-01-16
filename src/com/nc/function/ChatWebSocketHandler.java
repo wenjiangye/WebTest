@@ -18,6 +18,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
         super.handleTextMessage(session, message);
         for(int i = 0;i < sessions.size();i++)
         	sessions.get(i).sendMessage(message);
+        ///////////////////////////////
     }
     //连接建立后处理
     @SuppressWarnings("unchecked")
