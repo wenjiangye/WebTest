@@ -20,7 +20,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
 			
            super.handleTextMessage(session, message);
            for(int i = 0;i < sessions.size();i++)
-        	sessions.get(i).sendMessage(message);
+           {
+        	  sessions.get(i).sendMessage(message);
+           }
          }
           catch (Exception e) {
 			// TODO Auto-generated catch block
